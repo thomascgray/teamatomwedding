@@ -1,2 +1,0 @@
-# teamatomwedding
-team atom wedding
