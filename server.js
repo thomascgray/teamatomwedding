@@ -6,8 +6,8 @@ var swig = require('swig');
 var app = express();
 
 // wtf why do i have to do all of this?
-app.engine('html', swig.renderFile);
-app.set('view engine', 'html');
+app.engine('swig', swig.renderFile);
+app.set('view engine', 'swig');
 app.set('views', __dirname + '/public');
 
 // routes for static files? in what universe is this better than PHP?
