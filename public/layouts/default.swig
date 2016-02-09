@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--
+# TEAM ATOM WEDDING
+# MESSAGE BEGIN
+~
+WELCOME BACK, COMMANDER.
+I SEE YOU HAVE DISCOVERED THE HIDDEN MESSAGE.
+THIS IS GOOD. TIME IS SHORT, AND WE NEED EVERY MINUTE WE'VE GOT.
+HEAD TO http://i.imgur.com/3zN8CFz.png TO UNLOCK THE SECRET LAUNCH CODES.
+GOOD LUCK, COMMANDER. YOU'LL NEED IT.
+# MESSAGE END
+-->
 	<meta charset="UTF-8">
 	<meta name='title' content='Team aTom Online'>
 	<meta name='description' content='The home of Team aTom - on the internet'>
