@@ -1,7 +1,42 @@
+/*
+$turquoise: #1abc9c !default;
+$dark_turquoise: #16a085 !default;
+
+$green: #2ecc71 !default;
+$dark_green: #27ae60 !default;
+
+$blue: #3498db !default;
+$dark_blue: #2980b9 !default;
+
+$purple: #9b59b6 !default;
+$dark_purple: #8e44ad !default;
+
+$asphalt: #34495e !default;
+$dark_asphalt: #2c3e50 !default;
+
+$yellow: #f1c40f !default;
+$dark_yellow: #f39c12 !default;
+
+$orange: #e67e22 !default;
+$dark_orange: #d35400 !default;
+
+$red: #e74c3c !default;
+$dark_red: #c0392b !default;
+
+$white: #ecf0f1 !default;
+$dark_white: #bdc3c7 !default;
+
+$grey: #95a5a6 !default;
+$dark_grey: #7f8c8d !default;
+ */
+ body {
+ 	/*background:#8e44ad;*/
+ }
 input,button {
 	display:block;
 	float:left;
 	font-size:2em;
+	height:2em;
 }
 input {
 	width:75%;
@@ -10,6 +45,9 @@ input {
 button {
 	width:25%;
 	font-weight:bold;
+	color:white;
+	background:#7f8c8d;
+	border:0;
 }
 
 #form,#header {
@@ -23,33 +61,75 @@ button {
 }
 
 #header {
-	background:red;
+	background:#34495e;
 	color:white;
 	text-align:center;
 	font-weight:bold;
 }
 
+#header .hash {
+	color:#e74c3c;
+}
+
 #header .one {
-	color:yellow;
+	color:#f1c40f;
 }
 
 #header .two {
-	color:blue;
+	color:#3498db;
 }
 
 #header .three {
-	color:green;
+	color:#2ecc71;
 }
 
 .container-fluid {
 	padding-top:6em;
-	margin-bottom:3em;
+	margin-bottom:4em;
+}
+
+#messages p,#messages h1,#messages h2,#messages h3,#messages h4,#messages h5,#messages h6 {
+	color:#7f8c8d;
+	margin-bottom:1em;
+}
+#messages h1,#messages h2,#messages h3,#messages h4,#messages h5,#messages h6 {
+	font-weight:bold;
+	padding:0.5em;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
 }
 
 #messages p {
 	font-size:1.5em;
-	background:blue;
+}
+
+#messages h1 {
+	background:#c0392b;
 	color:white;
-	padding:1em;
-	margin-bottom:1em;
+}
+
+#messages h2 {
+	background:#2ecc71;
+	color:white;
+}
+
+#messages h3 {
+	background:#e67e22;
+	color:white;
+}
+
+#messages h4 {
+	background:#9b59b6;
+	color:white;
+}
+
+#messages h5 {
+	background:#16a085;
+	color:white;
+}
+
+#messages h6 {
+	background:#d35400;
+	color:white;
 }

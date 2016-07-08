@@ -21,7 +21,7 @@
 	</div> #}
 
 	<div id="header">
-		<h1>#<span class='one'>TEAM</span><span class='two'>ATOM</span><span class='three'>TWITTER</span></h1>
+		<h1><span class='hash'>#</span><span class='one'>TEAM</span><span class='two'>ATOM</span><span class='three'>TWITTER</span></h1>
 	</div>
 
 	<div class="container-fluid">

@@ -1,7 +1,9 @@
 var socket = io.connect(window.location.href);
+
 var converter = new showdown.Converter({
-	noHeaderId : true
+	'noHeaderId' : 'true'
 });
+
 var maxChars = 140;
 
 $(document).ready(function() {
@@ -34,6 +36,12 @@ function processSubmission() {
 }
 
 function addNewMessage(message) {
+
+	if (message == "admin:nuke") {
+		$('#messages').empty();
+		return true;
+	}
+
 	message = message.slice(0, maxChars);
 	$('#messages').append(converter.makeHtml(message));
 	window.scrollTo(0,document.body.scrollHeight);

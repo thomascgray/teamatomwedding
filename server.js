@@ -43,7 +43,7 @@ io.on('connection', function (socket) {
 
 	socket.on('message', function (data) {
 
-		if (data === 'tomg:nuke') {
+		if (data === 'admin:nuke') {
 			nuke();
 		}
 
@@ -54,4 +54,5 @@ io.on('connection', function (socket) {
 
 function nuke() {
 	messages = [];
+	io.emit('new-user', []);
 }
