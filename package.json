@@ -5,7 +5,10 @@
   "main": "server.js",
   "dependencies": {
     "express": "^4.13.4",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "external-ip": "^0.2.4",
+    "ip": "1.1.0",
+    "socket.io": "^1.4.5"
   },
   "devDependencies": {},
   "scripts": {
