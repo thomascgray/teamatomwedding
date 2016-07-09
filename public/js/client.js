@@ -1,4 +1,6 @@
-var socket = io.connect(window.location.href);
+var socketConnection = location.protocol + "//" + location.host;
+
+var socket = io.connect(socketConnection);
 
 var converter = new showdown.Converter({
 	'noHeaderId' : 'true'

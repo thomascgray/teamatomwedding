@@ -31,12 +31,20 @@ getExternalIP(function (err, ip) {
 	console.log(" (Accessible only if that port is forwarded)\n");
 });
 
+var messages = [];
+
 server.listen(port);
+
 app.get('/', function (req, res) {
-	res.render('index', {});
+	res.render('photos', {});
 });
 
-var messages = [];
+app.get('/talk', function(req, res) {
+	res.render('index', {});
+
+
+});
+
 
 io.on('connection', function (socket) {
 
