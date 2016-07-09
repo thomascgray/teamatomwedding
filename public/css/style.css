@@ -37,7 +37,10 @@ $dark_grey: #7f8c8d !default;
 	float:left;
 	font-size:2em;
 }
-
+a {
+	color: inherit;
+	text-decoration: underline;
+}
 #form input {
 	width:75%;
 	padding-left:0.5em;
@@ -96,10 +99,13 @@ $dark_grey: #7f8c8d !default;
 	display:block;
 	margin-top:0.5em;
 	margin-bottom:0.5em;
+	-webkit-border-radius: 1.5em 1.5em 1.5em 1.5em;
+	border-radius: 1.5em 1.5em 1.5em 1.5em;
 }
 
 #messages p,#messages h1,#messages h2,#messages h3,#messages h4,#messages h5,#messages h6 {
-	margin-bottom:1em;
+	margin-top:0.5em;
+	margin-bottom:0.5em;
 }
 #messages h1,#messages h2,#messages h3,#messages h4,#messages h5,#messages h6 {
 	font-weight:bold;

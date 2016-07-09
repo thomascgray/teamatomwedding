@@ -87,6 +87,10 @@ function addNewMessage(data) {
 
 	text = text.slice(0, maxChars);
 
+	if (isUrl(text)) {
+		text = "<a href=" + text + ">" + text + "</a>";
+	}
+
 	var messageHtml = converter.makeHtml(text);
 
 	messageHtml = "<span style='color:" + data.colour + "'>" + messageHtml + "</span>"
@@ -128,4 +132,9 @@ function getMeNewColour() {
 				       luminosity: 'dark'
 				   });
 	localStorage.setItem('teamatomtalk-mycolour', myColour);
+}
+
+function isUrl(s) {
+   var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+   return regexp.test(s);
 }
