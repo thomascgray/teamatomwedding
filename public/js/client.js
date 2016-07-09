@@ -87,14 +87,16 @@ function addNewMessage(data) {
 		return true;
 	}
 
+	// limit the text
 	text = text.slice(0, maxChars);
 
-	if (isUrl(text)) {
-		text = "<a href=" + text + ">" + text + "</a>";
-	}
-
+	// then markdown it
 	var messageHtml = converter.makeHtml(text);
 
+	// then linkify it
+	messageHtml = anchorme.js(messageHtml);
+
+	// then make sure it is coloured ... (thats probably racist)
 	messageHtml = "<span style='color:" + data.colour + "'>" + messageHtml + "</span>"
 
 	$('#messages').append(messageHtml);
