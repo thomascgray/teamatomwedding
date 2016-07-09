@@ -29,6 +29,10 @@ $dark_white: #bdc3c7 !default;
 $grey: #95a5a6 !default;
 $dark_grey: #7f8c8d !default;
  */
+input, button {
+    border-radius: 0;
+    -webkit-appearance: none;
+}
  body {
  	/*background:#8e44ad;*/
  }
