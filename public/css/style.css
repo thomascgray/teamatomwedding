@@ -160,3 +160,30 @@ a {
 	display:block;
 	width:80%;
 }
+
+
+
+/*
+
+TESTIMONY STYLES
+
+
+ */
+
+#testimony {
+	text-align:center;
+	font-color:#7f8c8d;
+}
+
+#testimony h1 {
+	font-weight:bold;
+}
+
+#testimony h2,#testimony h3,#testimony h4 {
+	margin-left:1em;
+	margin-right:1em;
+}
+
+#testimony img {
+	width:100%;
+}

@@ -2,19 +2,42 @@
 
 {% block content %}
 
-	<div class="image">
-		<img src="http://hairstyletwist.com/uploads/Image/iStock_000002320629XSmall_1.JPG" alt="">
-		<span class="caption big">WELCOME TO THE WEDDING!</span>
-	</div>
+	<div id="testimony">
+	<h1>WELCOME TO THE TEAM ATOM WEDDING!</h1>
 
-	<div class="image">
-		<img src="https://c1.staticflickr.com/1/107/280024881_4d8f1b1fa8_b.jpg" alt="">
-		<span class="caption big">WANT TO REQUEST A SONG? 1 SHOT = 1 SONG</span>
-	</div>
+	<img src="img/main.png" alt="">
 
-	<div class="image">
-		<img src="http://www.whizzpast.com/wordpress/wp-content/uploads/2015/02/best1930spics.jpg" alt="">
-		<span class="caption big">FEEL FREE TO HIT THE BAR FOR REFRESHMENTS</span>
+	<h3>Thanks to all our family and friends for your help in
+		planning this shindig - we appreciate you all</h3>
+
+		<hr>
+
+		<h3>Thanks to our bridesmaids, groomsmen, best man and
+		maid of honour (and man of honour) for being there for us - you mean the world to us</h3>
+
+		<hr>
+
+
+		<h3>Thanks to our parents for raising us, caring for
+		us, giving to us, and for generally being fantastic - we wouldn't be here without you (literally)</h3>
+
+		<hr>
+
+		<h3>And finally, we simply have too many people we care for
+		to mention by name, but we're thankful to each and everyone of you for taking the time to come
+		and celebrate with us today - we love you all</h3>
+
+		<h2>Thomas and Alice</h2>
+
+		<hr>
+
+		<p>Wanna join in the wedding chat?</p>
+
+		<a href="/talk" class="btn">JOIN THE FUN</a>
+		<br>
+		<img src="img/justmarried.jpg" alt="">
+
 	</div>
 
 {% endblock %}
+

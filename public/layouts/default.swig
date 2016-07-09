@@ -30,6 +30,7 @@ GOOD LUCK, COMMANDER. YOU'LL NEED IT.
 	<script src='js/lodash.js'></script>
 	<script src='js/showdown.min.js'></script>
 	<script src='js/randomColor.js'></script>
-	<script src='js/client.js'></script>
+	{% block scripts %}{% endblock %}
+
 </body>
 </html>
