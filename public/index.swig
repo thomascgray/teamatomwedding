@@ -33,10 +33,8 @@
 	</div>
 
 	<div id="form">
-		<input id='new-message-box' type="text">
-		<button data-toggle="modal" data-target="#myModal" id='new-sticker-button'>
-			FUN
-		</button>
+		<input id='new-message-box' type="text" placeholder='CHAT'>
+		<button data-toggle="modal" data-target="#myModal" id='new-sticker-button'>FUN!</button>
 	</div>
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

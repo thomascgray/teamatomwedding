@@ -12,7 +12,8 @@ $(document).ready(function() {
 			if (undefined !== v.message) {
 				addNewMessage(v);
 			} else if (undefined !== v.stickerKey) {
-				addNewSticker(v.stickerKey);
+				console.log(v);
+				addNewSticker(v.stickerKey, v.colour);
 			}
 		})
 	});
@@ -22,7 +23,7 @@ $(document).ready(function() {
 		if (undefined !== data.message) {
 			addNewMessage(data);
 		} else if (undefined !== data.stickerKey) {
-			addNewSticker(data.stickerKey);
+			addNewSticker(data.stickerKey, data.colour);
 		}
 	});
 
@@ -37,8 +38,11 @@ $(document).ready(function() {
 
 	$('.sticker-button').on('click', function() {
 		var stickerKey = $(this).data('key');
-		addNewSticker(stickerKey);
-		socket.emit("message", {stickerKey : stickerKey});
+		addNewSticker(stickerKey, getMyColour());
+		socket.emit("message", {
+			stickerKey : stickerKey,
+			colour: getMyColour()
+		});
 	});
 
 });
@@ -92,11 +96,11 @@ function addNewMessage(data) {
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
-function addNewSticker(stickerKey) {
+function addNewSticker(stickerKey, colour) {
 
 	var imageUrl = 'stickers/' + stickerKey;
 
-	var imageHtml = "<img width='150' height='150' src=" + imageUrl + " alt='' />";
+	var imageHtml = "<img style='border:2px solid " + colour + "' width='150' height='150' src=" + imageUrl + " alt='' /></span>";
 
 	$('#messages').append(imageHtml);
 

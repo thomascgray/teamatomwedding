@@ -40,18 +40,16 @@ var messages = [];
 
 io.on('connection', function (socket) {
 
+	// send all messages to new user
 	socket.emit('new-user', messages);
 
+	// add message to messages and broadcast
 	socket.on('message', function (data) {
-
 		if (data === 'admin:nuke') {
 			nuke();
 		}
-
 		messages.push(data);
 		socket.broadcast.emit("new-message", data);
-
-		console.log(data);
 	});
 
 });
