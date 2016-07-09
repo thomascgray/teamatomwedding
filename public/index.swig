@@ -21,7 +21,7 @@
 	</div> #}
 
 	<div id="header">
-		<h1><span class='hash'>#</span><span class='one'>TEAM</span><span class='two'>ATOM</span><span class='three'>TWITTER</span></h1>
+		<h1><span class='hash'>#</span><span class='one'>TEAM</span><span class='two'>ATOM</span><span class='three'>TALK</span></h1>
 	</div>
 
 	<div class="container-fluid">
@@ -34,6 +34,6 @@
 
 	<div id="form">
 		<input id='new-message-box' type="text">
-		<button id='new-message-button'>GO</button>
+		<button id='new-message-button'>SEND</button>
 	</div>
 {% endblock %}

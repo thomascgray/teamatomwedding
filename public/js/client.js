@@ -21,28 +21,74 @@ $(document).ready(function() {
 	});
 
 	socket.on('new-message', function (data) {
-		addNewMessage(data.message);
+		addNewMessage(data);
 	});
 });
 
 function processSubmission() {
 	var text = $('#new-message-box').val();
+	text = text.replace(/\s+/g, '');
 	if (text == '') {
 		return true;
 	}
-	addNewMessage(text);
-	socket.emit("message", text);
+
+	// add the new message into the div
+	addNewMessage({
+		message : text,
+		colour : getMyColour()
+	});
+
+	// emit the data through the socket
+	socket.emit("message", {
+		message : text,
+		colour : getMyColour()
+	});
+
 	$('#new-message-box').val('');
 }
 
-function addNewMessage(message) {
+function addNewMessage(data) {
+	var text = data.message;
+	text = _.escape(text);
 
-	if (message == "admin:nuke") {
+	if (text == "admin:nuke") {
 		$('#messages').empty();
 		return true;
 	}
 
-	message = message.slice(0, maxChars);
-	$('#messages').append(converter.makeHtml(message));
+	if (text == 'admin:newcolour') {
+		getMeNewColour();
+		return true;
+	}
+
+	text = text.slice(0, maxChars);
+
+	var messageHtml = converter.makeHtml(text);
+
+	messageHtml = "<span style='color:" + data.colour + "'>" + messageHtml + "</span>"
+
+	$('#messages').append(messageHtml);
+
 	window.scrollTo(0,document.body.scrollHeight);
+}
+
+function getMyColour() {
+	var myColour = localStorage.getItem('teamatomtalk-mycolour');
+
+	if (undefined == myColour || '' == myColour) {
+		myColour = randomColor({
+						luminosity: 'dark'
+					});
+	}
+
+	localStorage.setItem('teamatomtalk-mycolour', myColour);
+
+	return myColour;
+}
+
+function getMeNewColour() {
+	var myColour = randomColor({
+				       luminosity: 'dark'
+				   });
+	localStorage.setItem('teamatomtalk-mycolour', myColour);
 }
