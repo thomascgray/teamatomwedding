@@ -18,6 +18,7 @@ app.set('view cache', false);
 app.use('/css', express.static(__dirname + '/public/css'));
 app.use('/img', express.static(__dirname + '/public/img'));
 app.use('/js', express.static(__dirname + '/public/js'));
+app.use('/stickers', express.static(__dirname + '/public/stickers'));
 swig.setDefaults({ cache: false });
 
 var getExternalIP = require('external-ip')();
@@ -52,6 +53,7 @@ io.on('connection', function (socket) {
 
 		console.log(data);
 	});
+
 });
 
 function nuke() {

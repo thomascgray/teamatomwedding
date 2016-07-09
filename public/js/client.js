@@ -4,26 +4,43 @@ var converter = new showdown.Converter({
 	'noHeaderId' : 'true'
 });
 
-var maxChars = 140;
+var maxChars = 500;
 
 $(document).ready(function() {
+	socket.on('new-user', function (data) {
+		$(data).each(function(i, v) {
+			if (undefined !== v.message) {
+				addNewMessage(v);
+			} else if (undefined !== v.stickerKey) {
+				addNewSticker(v.stickerKey);
+			}
+		})
+	});
+
+	socket.on('new-message', function (data) {
+		console.log(data);
+		if (undefined !== data.message) {
+			addNewMessage(data);
+		} else if (undefined !== data.stickerKey) {
+			addNewSticker(data.stickerKey);
+		}
+	});
+
 	$('#new-message-box').on('change', function() {
 		processSubmission();
 	});
+
 	$('#new-message-button').on('click', function() {
 		processSubmission();
 		$('#new-message-box').focus();
 	});
 
-	socket.on('new-user', function (data) {
-		$(data).each(function(i, v) {
-			addNewMessage(v);
-		})
+	$('.sticker-button').on('click', function() {
+		var stickerKey = $(this).data('key');
+		addNewSticker(stickerKey);
+		socket.emit("message", {stickerKey : stickerKey});
 	});
 
-	socket.on('new-message', function (data) {
-		addNewMessage(data);
-	});
 });
 
 function processSubmission() {
@@ -71,6 +88,19 @@ function addNewMessage(data) {
 	messageHtml = "<span style='color:" + data.colour + "'>" + messageHtml + "</span>"
 
 	$('#messages').append(messageHtml);
+
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
+function addNewSticker(stickerKey) {
+
+	var imageUrl = 'stickers/' + stickerKey;
+
+	var imageHtml = "<img width='150' height='150' src=" + imageUrl + " alt='' />";
+
+	$('#messages').append(imageHtml);
+
+	$('#myModal').modal('hide');
 
 	window.scrollTo(0,document.body.scrollHeight);
 }

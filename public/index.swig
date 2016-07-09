@@ -34,6 +34,50 @@
 
 	<div id="form">
 		<input id='new-message-box' type="text">
-		<button id='new-message-button'>SEND</button>
+		<button data-toggle="modal" data-target="#myModal" id='new-sticker-button'>
+			FUN
+		</button>
+	</div>
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	      <div class="row">
+	      	<div class="col-xs-6">
+				<button class='sticker-button' data-key='tom_ziggy.jpg'>
+					<img src="stickers/tom_ziggy.jpg" alt="">
+				</button>
+				<button class='sticker-button' data-key='tom_senpai.jpg'>
+					<img src="stickers/tom_senpai.jpg" alt="">
+				</button>
+				<button class='sticker-button' data-key='tom_deal_with_it.jpg'>
+					<img src="stickers/tom_deal_with_it.jpg" alt="">
+				</button>
+				<button class='sticker-button' data-key='tom_shocked.jpg'>
+					<img src="stickers/tom_shocked.jpg" alt="">
+				</button>
+	      	</div>
+	      	<div class="col-xs-6">
+				<button class='sticker-button' data-key='alice_angry.jpg'>
+					<img src="stickers/alice_angry.jpg" alt="">
+				</button>
+				<button class='sticker-button' data-key='alice_want.jpg'>
+					<img src="stickers/alice_want.jpg" alt="">
+				</button>
+				<button class='sticker-button' data-key='alice_zorro.jpg'>
+					<img src="stickers/alice_zorro.jpg" alt="">
+				</button>
+				<button class='sticker-button' data-key='alice_cry.jpg'>
+					<img src="stickers/alice_cry.jpg" alt="">
+				</button>
+	      	</div>
+	      </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 {% endblock %}

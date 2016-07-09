@@ -32,17 +32,20 @@ $dark_grey: #7f8c8d !default;
  body {
  	/*background:#8e44ad;*/
  }
-input,button {
+#form input,#form button {
 	display:block;
 	float:left;
 	font-size:2em;
-	height:2em;
 }
-input {
+
+#form input {
 	width:75%;
 	padding-left:0.5em;
+	min-height:2em;
 }
-button {
+
+#form button {
+	height:2em;
 	width:25%;
 	font-weight:bold;
 	color:white;
@@ -86,6 +89,13 @@ button {
 .container-fluid {
 	padding-top:6em;
 	margin-bottom:4em;
+	overflow:hidden;
+}
+
+#messages img {
+	display:block;
+	margin-top:0.5em;
+	margin-bottom:0.5em;
 }
 
 #messages p,#messages h1,#messages h2,#messages h3,#messages h4,#messages h5,#messages h6 {
@@ -131,4 +141,16 @@ button {
 #messages h6 {
 	background:#d35400;
 	color:white;
+}
+
+.sticker-button {
+	width:100%;
+	background:white;
+	border:none;
+	text-align:center;
+}
+
+.sticker-button img {
+	display:block;
+	width:80%;
 }
