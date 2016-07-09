@@ -27,7 +27,9 @@ $(document).ready(function() {
 
 function processSubmission() {
 	var text = $('#new-message-box').val();
-	text = text.replace(/\s+/g, '');
+
+	text = _.trim(text);
+
 	if (text == '') {
 		return true;
 	}
