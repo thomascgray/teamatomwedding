@@ -1,43 +1,31 @@
+// setup sockets and constants
 var socketConnection = location.protocol + "//" + location.host;
-
 var socket = io.connect(socketConnection);
-
-var converter = new showdown.Converter({
-	'noHeaderId' : 'true'
-});
-
+var converter = new showdown.Converter();
 var maxChars = 500;
 
+socket.on('welcome', function (messages) {
+	$(data).each(function(index, message) {
+		renderMessage(message);
+	});
+
+	window.scrollTo(0,document.body.scrollHeight);
+});
+
+socket.on('new-message', function (message) {
+	renderMessage(message);
+
+	window.scrollTo(0,document.body.scrollHeight);
+});
+
 $(document).ready(function() {
-	socket.on('new-user', function (data) {
-		$(data).each(function(i, v) {
-			if (undefined !== v.message) {
-				addNewMessage(v);
-			} else if (undefined !== v.stickerKey) {
-				console.log(v);
-				addNewSticker(v.stickerKey, v.colour);
-			}
-		})
-	});
 
-	socket.on('new-message', function (data) {
-		console.log(data);
-		if (undefined !== data.message) {
-			addNewMessage(data);
-		} else if (undefined !== data.stickerKey) {
-			addNewSticker(data.stickerKey, data.colour);
-		}
-	});
-
+	// sending a text message
 	$('#new-message-box').on('change', function() {
-		processSubmission();
+		processTextMessageSubmission();
 	});
 
-	$('#new-message-button').on('click', function() {
-		processSubmission();
-		$('#new-message-box').focus();
-	});
-
+	// sending a sticker message
 	$('.sticker-button').on('click', function() {
 		var stickerKey = $(this).data('key');
 		addNewSticker(stickerKey, getMyColour());
@@ -49,7 +37,7 @@ $(document).ready(function() {
 
 });
 
-function processSubmission() {
+function processTextMessageSubmission() {
 	var text = $('#new-message-box').val();
 
 	text = _.trim(text);
@@ -58,8 +46,13 @@ function processSubmission() {
 		return true;
 	}
 
+	if (text == "admin:nuke") {
+		$('#messages').empty();
+		return true;
+	}
+
 	// add the new message into the div
-	addNewMessage({
+	renderTextMessage({
 		message : text,
 		colour : getMyColour()
 	});
@@ -77,10 +70,7 @@ function addNewMessage(data) {
 	var text = data.message;
 	text = _.escape(text);
 
-	if (text == "admin:nuke") {
-		$('#messages').empty();
-		return true;
-	}
+
 
 	if (text == 'admin:newcolour') {
 		getMeNewColour();
@@ -114,31 +104,27 @@ function addNewSticker(stickerKey, colour) {
 
 	$('#myModal').modal('hide');
 
-	window.scrollTo(0,document.body.scrollHeight);
+
 }
 
-function getMyColour() {
-	var myColour = localStorage.getItem('teamatomtalk-mycolour');
-
-	if (undefined == myColour || '' == myColour) {
-		myColour = randomColor({
-						luminosity: 'dark'
-					});
+function renderMessage(message) {
+	if (undefined !== message.text) {
+		renderTextMessage(message);
+	} else if (undefined !== message.stickerKey) {
+		renderStickerMessage(message);
 	}
-
-	localStorage.setItem('teamatomtalk-mycolour', myColour);
-
-	return myColour;
 }
 
-function getMeNewColour() {
-	var myColour = randomColor({
-				       luminosity: 'dark'
-				   });
-	localStorage.setItem('teamatomtalk-mycolour', myColour);
+function renderTextMessage(message) {
+
 }
 
-function isUrl(s) {
-   var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-   return regexp.test(s);
+function renderStickerMessage(message) {
+	var imageUrl = 'stickers/' + message.stickerKey;
+
+	var imageHtml = "<img style='border:2px solid " + message.colour + "' width='150' height='150' src=" + imageUrl + " alt='' /></span>";
+
+	$('#messages').append(imageHtml);
+
+	$('#myModal').modal('hide');
 }
