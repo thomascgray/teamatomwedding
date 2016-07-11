@@ -48,8 +48,8 @@ io.on('connection', function (socket) {
 
 		if (isSaveAndBroadcast) {
 			console.log("saving and broadcasting message");
-			messages.push(message);
-			socket.broadcast.emit("new-message", message);
+			newMessage(message);
+
 
 			// TODO trim the messages down to the most recent
 			// 500 or something here whenever you get a new message
@@ -71,4 +71,9 @@ function processNewMessage(message) {
 function nuke() {
 	messages = [];
 	io.emit('welcome', messages);
+}
+
+function newMessage(message) {
+	messages.push(message);
+	io.emit("new-message", message);
 }
