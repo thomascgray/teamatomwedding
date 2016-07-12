@@ -20,21 +20,26 @@ $(document).ready(function() {
 
 	// sending a text message
 	$('#new-message-box').on('change', function() {
-		processTextMessageSubmission();
+		sendTextMessage();
 	});
 
 	// sending a sticker message
 	$('.sticker-button').on('click', function() {
-		var stickerKey = $(this).data('key');
-		socket.emit("message", {
-			stickerKey : stickerKey,
-			colour: getMyColour()
-		});
+		sendStickerMessage($(this));
 	});
 
 });
 
-function processTextMessageSubmission() {
+function sendStickerMessage(buttonClicked) {
+	var stickerKey = $(buttonClicked).data('key');
+	socket.emit("message", {
+		stickerKey : stickerKey,
+		colour: getMyColour(),
+		backgroundColour: getMyBackgroundColour()
+	});
+}
+
+function sendTextMessage() {
 	var text = $('#new-message-box').val();
 
 	text = _.trim(text);
@@ -43,10 +48,14 @@ function processTextMessageSubmission() {
 		return true;
 	}
 
+	// limit the text
+	text = text.slice(0, maxChars);
+
 	// emit the data through the socket
 	socket.emit("message", {
 		text : text,
-		colour : getMyColour()
+		colour : getMyColour(),
+		backgroundColour: getMyBackgroundColour()
 	});
 
 	$('#new-message-box').val('');
@@ -64,11 +73,14 @@ function renderMessage(message) {
 function renderTextMessage(message) {
 	var text = message.text;
 
+	// escape it (the equilivant of html entities i think?)
 	text = _.escape(text);
 
-	// limit the text
-	text = text.slice(0, maxChars);
-	console.log(text);
+	// process any commands and possibly end there
+	var isContinue = processCommands(text);
+	if (false === isContinue) {
+		return false;
+	}
 
 	// then markdown it
 	var messageHtml = converter.makeHtml(text);
@@ -77,8 +89,9 @@ function renderTextMessage(message) {
 	messageHtml = anchorme.js(messageHtml);
 
 	// then make sure it is coloured (thats probably racist)
-	messageHtml = "<span style='color:" + message.colour + "'>" + messageHtml + "</span>"
+	messageHtml = "<span style='background-color:" + message.backgroundColour + ";color:" + message.colour + "'>" + messageHtml + "</span>"
 
+	// finally, append it inside the messages div
 	$('#messages').append(messageHtml);
 }
 
@@ -95,4 +108,16 @@ function renderStickerMessage(message) {
 function getMyColour() {
 	// TODO this, obviously
 	return '#ff0000';
+}
+
+function getMyBackgroundColour() {
+	// TODO this, obv
+	return '#0000ff';
+}
+
+function processCommands(text) {
+	if ('admin:nuke' === text) {
+		$('#messages').empty();
+		return false;
+	}
 }

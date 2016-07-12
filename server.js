@@ -43,7 +43,8 @@ io.on('connection', function (socket) {
 	// , add it to the queue and then broadcast the event back
 	// out with the message attached
 	socket.on('message', function (message) {
-		console.log("message received");
+		console.log("**message received**");
+		console.log(message);
 		var isSaveAndBroadcast = processNewMessage(message);
 
 		if (isSaveAndBroadcast) {
