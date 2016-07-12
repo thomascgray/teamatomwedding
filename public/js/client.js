@@ -42,14 +42,19 @@ function sendStickerMessage(buttonClicked) {
 function sendTextMessage() {
 	var text = $('#new-message-box').val();
 
+	// sanity alterations
 	text = _.trim(text);
+	text = text.slice(0, maxChars);
 
 	if (text == '') {
-		return true;
+		return false;
 	}
 
-	// limit the text
-	text = text.slice(0, maxChars);
+	// process any commands and possibly end there
+	var isContinue = processCommands(text);
+	if (false === isContinue) {
+		return false;
+	}
 
 	// emit the data through the socket
 	socket.emit("message", {
@@ -60,7 +65,6 @@ function sendTextMessage() {
 
 	$('#new-message-box').val('');
 }
-
 
 function renderMessage(message) {
 	if (undefined !== message.text) {
@@ -75,12 +79,6 @@ function renderTextMessage(message) {
 
 	// escape it (the equilivant of html entities i think?)
 	text = _.escape(text);
-
-	// process any commands and possibly end there
-	var isContinue = processCommands(text);
-	if (false === isContinue) {
-		return false;
-	}
 
 	// then markdown it
 	var messageHtml = converter.makeHtml(text);
@@ -118,6 +116,7 @@ function getMyBackgroundColour() {
 function processCommands(text) {
 	if ('admin:nuke' === text) {
 		$('#messages').empty();
+		socket.emit('nuke');
 		return false;
 	}
 }

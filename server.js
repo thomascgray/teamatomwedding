@@ -56,16 +56,14 @@ io.on('connection', function (socket) {
 			// 500 or something here whenever you get a new message
 		}
 	});
+
+	socket.on('nuke', function(data) {
+		nuke();
+	});
 });
 
 function processNewMessage(message) {
-	if (undefined !== message.text) {
-		if ('admin:nuke' == message.text) {
-			console.log("nuking messages");
-			nuke();
-			return false;
-		}
-	}
+	// until i can think of a reason for this...
 	return true;
 }
 
