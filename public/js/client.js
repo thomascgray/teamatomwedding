@@ -1,94 +1,84 @@
+// setup sockets and constants
 var socketConnection = location.protocol + "//" + location.host;
-
 var socket = io.connect(socketConnection);
-
-var converter = new showdown.Converter({
-	'noHeaderId' : 'true'
-});
-
+var converter = new showdown.Converter();
 var maxChars = 500;
 
+socket.on('welcome', function (messages) {
+	$(messages).each(function(index, message) {
+		renderMessage(message);
+	});
+	window.scrollTo(0,document.body.scrollHeight);
+});
+
+socket.on('new-message', function (message) {
+	renderMessage(message);
+	window.scrollTo(0,document.body.scrollHeight);
+});
+
 $(document).ready(function() {
-	socket.on('new-user', function (data) {
-		$(data).each(function(i, v) {
-			if (undefined !== v.message) {
-				addNewMessage(v);
-			} else if (undefined !== v.stickerKey) {
-				console.log(v);
-				addNewSticker(v.stickerKey, v.colour);
-			}
-		})
-	});
 
-	socket.on('new-message', function (data) {
-		console.log(data);
-		if (undefined !== data.message) {
-			addNewMessage(data);
-		} else if (undefined !== data.stickerKey) {
-			addNewSticker(data.stickerKey, data.colour);
-		}
-	});
-
+	// sending a text message
 	$('#new-message-box').on('change', function() {
-		processSubmission();
+		sendTextMessage();
 	});
 
-	$('#new-message-button').on('click', function() {
-		processSubmission();
-		$('#new-message-box').focus();
-	});
-
+	// sending a sticker message
 	$('.sticker-button').on('click', function() {
-		var stickerKey = $(this).data('key');
-		addNewSticker(stickerKey, getMyColour());
-		socket.emit("message", {
-			stickerKey : stickerKey,
-			colour: getMyColour()
-		});
+		sendStickerMessage($(this));
 	});
 
 });
 
-function processSubmission() {
+function sendStickerMessage(buttonClicked) {
+	var stickerKey = $(buttonClicked).data('key');
+	socket.emit("message", {
+		stickerKey : stickerKey,
+		colour: getMyColour(),
+		backgroundColour: getMyBackgroundColour()
+	});
+}
+
+function sendTextMessage() {
 	var text = $('#new-message-box').val();
 
+	// sanity alterations
 	text = _.trim(text);
+	text = text.slice(0, maxChars);
 
 	if (text == '') {
-		return true;
+		return false;
 	}
 
-	// add the new message into the div
-	addNewMessage({
-		message : text,
-		colour : getMyColour()
-	});
+	// process any commands and possibly end there
+	var isContinue = processCommands(text);
+	if (false === isContinue) {
+		return false;
+	}
 
 	// emit the data through the socket
 	socket.emit("message", {
-		message : text,
-		colour : getMyColour()
+		text : text,
+		colour : getMyColour(),
+		backgroundColour: getMyBackgroundColour()
 	});
 
 	$('#new-message-box').val('');
 }
 
-function addNewMessage(data) {
-	var text = data.message;
+function renderMessage(message) {
+	if (undefined !== message.text) {
+		renderTextMessage(message);
+	} else if (undefined !== message.stickerKey) {
+		renderStickerMessage(message);
+	}
+}
+
+function renderTextMessage(message) {
+	var text = message.text;
+
+	// escape it (the equilivant of html entities i think?)
 	text = _.escape(text);
-
-	if (text == "admin:nuke") {
-		$('#messages').empty();
-		return true;
-	}
-
-	if (text == 'admin:newcolour') {
-		getMeNewColour();
-		return true;
-	}
-
-	// limit the text
-	text = text.slice(0, maxChars);
 
 	// then markdown it
 	var messageHtml = converter.makeHtml(text);
@@ -96,49 +86,37 @@ function addNewMessage(data) {
 	// then linkify it
 	messageHtml = anchorme.js(messageHtml);
 
-	// then make sure it is coloured ... (thats probably racist)
-	messageHtml = "<span style='color:" + data.colour + "'>" + messageHtml + "</span>"
+	// then make sure it is coloured (thats probably racist)
+	messageHtml = "<span style='background-color:" + message.backgroundColour + ";color:" + message.colour + "'>" + messageHtml + "</span>"
 
+	// finally, append it inside the messages div
 	$('#messages').append(messageHtml);
-
-	window.scrollTo(0,document.body.scrollHeight);
 }
 
-function addNewSticker(stickerKey, colour) {
+function renderStickerMessage(message) {
+	var imageUrl = 'stickers/' + message.stickerKey;
 
-	var imageUrl = 'stickers/' + stickerKey;
-
-	var imageHtml = "<img style='border:2px solid " + colour + "' width='150' height='150' src=" + imageUrl + " alt='' /></span>";
+	var imageHtml = "<img style='border:2px solid " + message.colour + "' width='150' height='150' src=" + imageUrl + " alt='' /></span>";
 
 	$('#messages').append(imageHtml);
 
 	$('#myModal').modal('hide');
-
-	window.scrollTo(0,document.body.scrollHeight);
 }
 
 function getMyColour() {
-	var myColour = localStorage.getItem('teamatomtalk-mycolour');
+	// TODO this, obviously
+	return '#ff0000';
+}
 
-	if (undefined == myColour || '' == myColour) {
-		myColour = randomColor({
-						luminosity: 'dark'
-					});
+function getMyBackgroundColour() {
+	// TODO this, obv
+	return '#0000ff';
+}
+
+function processCommands(text) {
+	if ('admin:nuke' === text) {
+		$('#messages').empty();
+		socket.emit('nuke');
+		return false;
 	}
-
-	localStorage.setItem('teamatomtalk-mycolour', myColour);
-
-	return myColour;
-}
-
-function getMeNewColour() {
-	var myColour = randomColor({
-				       luminosity: 'dark'
-				   });
-	localStorage.setItem('teamatomtalk-mycolour', myColour);
-}
-
-function isUrl(s) {
-   var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-   return regexp.test(s);
 }
