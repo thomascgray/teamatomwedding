@@ -16,6 +16,12 @@ socket.on('new-message', function (message) {
 	window.scrollTo(0,document.body.scrollHeight);
 });
 
+socket.on('nuke', function (message) {
+	console.log("nuking");
+	$('#messages').empty();
+	window.scrollTo(0,document.body.scrollHeight);
+});
+
 $(document).ready(function() {
 
 	// sending a text message
@@ -105,7 +111,19 @@ function renderStickerMessage(message) {
 
 function getMyColour() {
 	// TODO this, obviously
-	return '#ff0000';
+
+	var myColour = localStorage.getItem('teamatommycolour');
+		console.log(myColour);
+	if (undefined == myColour) {
+		myColour = randomColor({luminosity: 'dark'});
+		localStorage.setItem('teamatommycolour', myColour);
+		console.log(myColour);
+
+	}
+
+		console.log(myColour);
+
+	return myColour;
 }
 
 function getMyBackgroundColour() {
@@ -117,6 +135,8 @@ function processCommands(text) {
 	if ('admin:nuke' === text) {
 		$('#messages').empty();
 		socket.emit('nuke');
+		console.log("sending a nuke");
+		$('#new-message-box').val('');
 		return false;
 	}
 }

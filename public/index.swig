@@ -40,6 +40,15 @@
 				<button class='sticker-button' data-key='tom_shocked.jpg'>
 					<img src="stickers/tom_shocked.jpg" alt="">
 				</button>
+				<button class='sticker-button' data-key='tom_drunk.jpg'>
+					<img src="stickers/tom_drunk.jpg" alt="">
+				</button>
+				<button class='sticker-button' data-key='tom_finn.jpg'>
+					<img src="stickers/tom_finn.jpg" alt="">
+				</button>
+				<button class='sticker-button' data-key='tom_wolverine.jpg'>
+					<img src="stickers/tom_wolverine.jpg" alt="">
+				</button>
 	      	</div>
 	      	<div class="col-xs-6">
 				<button class='sticker-button' data-key='alice_angry.jpg'>
@@ -48,11 +57,20 @@
 				<button class='sticker-button' data-key='alice_want.jpg'>
 					<img src="stickers/alice_want.jpg" alt="">
 				</button>
+				<button class='sticker-button' data-key='alice_bubblegum.jpg'>
+					<img src="stickers/alice_bubblegum.jpg" alt="">
+				</button>
 				<button class='sticker-button' data-key='alice_zorro.jpg'>
 					<img src="stickers/alice_zorro.jpg" alt="">
 				</button>
+				<button class='sticker-button' data-key='alice_wonderwoman.jpg'>
+					<img src="stickers/alice_wonderwoman.jpg" alt="">
+				</button>
 				<button class='sticker-button' data-key='alice_cry.jpg'>
 					<img src="stickers/alice_cry.jpg" alt="">
+				</button>
+				<button class='sticker-button' data-key='alice_sia.jpg'>
+					<img src="stickers/alice_sia.jpg" alt="">
 				</button>
 	      	</div>
 	      </div>

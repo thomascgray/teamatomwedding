@@ -69,7 +69,7 @@ function processNewMessage(message) {
 
 function nuke() {
 	messages = [];
-	io.emit('welcome', messages);
+	io.emit('nuke');
 }
 
 function newMessage(message) {
