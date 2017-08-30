@@ -21,7 +21,7 @@ app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/stickers', express.static(__dirname + '/public/stickers'));
 swig.setDefaults({ cache: false });
 
-var messages = [];
+const messages = [];
 
 server.listen(port);
 
@@ -45,7 +45,7 @@ io.on('connection', function (socket) {
 	socket.on('message', function (message) {
 		console.log("**message received**");
 		console.log(message);
-		var isSaveAndBroadcast = processNewMessage(message);
+		let isSaveAndBroadcast = processNewMessage(message);
 
 		if (isSaveAndBroadcast) {
 			console.log("saving and broadcasting message");

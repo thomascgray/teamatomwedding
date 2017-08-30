@@ -8,3 +8,8 @@ Static page thanking our wonderful friends and family for coming along to the sh
 http://teamatom.online/talk
 
 Real time, anonymous chat app I smashed out in one mental evening to give the nerdier of the guests something to do (*WARNING: My friends are basically all scumbags, so the content of the chat app may be extremely NSFW. Look at your own risk*)
+
+// @TODO
+
+- when I get the time, make the client ES6 via Babel!
+- refactor the server to not be awful (it was one evening, OK?!)
